@@ -177,11 +177,13 @@ A popular restaurant wants to manage reservations, orders, and billing.
 | Reservation – Bill     | 1:1         | Total         | Each completed reservation generates one bill.                             |
 
 ### Assumptions
-- 
-- 
-- 
+1.Every customer has a unique Customer_ID.
 
----
+
+2.Walk-in customers are also recorded as customers with Reservation_Type = Walk-in.
+
+
+3.Each reservation is assigned to one table and one waiter.
 
 ## Instructions for Students
 
