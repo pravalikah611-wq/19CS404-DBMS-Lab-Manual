@@ -23,6 +23,9 @@ FlexiFit Gym wants a database to manage its members, trainers, and fitness progr
 
 ### ER Diagram:
 
+<img width="1021" height="942" alt="image" src="https://github.com/user-attachments/assets/af6bf080-01fb-469a-b801-a0ab89852d94" />
+
+
 ![ER Diagram](er_diagram_fitness.png)
 
 ### Entities and Attributes:
@@ -141,6 +144,8 @@ A popular restaurant wants to manage reservations, orders, and billing.
 - Waiters assigned to serve reservations.
 
 ### ER Diagram:
+
+
 
 ![ER Diagram](er_diagram_restaurant.png)
 
