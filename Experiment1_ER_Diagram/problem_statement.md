@@ -86,8 +86,14 @@ Personal Session – Payment	  1:M (Optional)	    Partial	            Session pa
 
 ### Assumptions
 1.Every member has a unique Member_ID.
+
+
 2.Every trainer has a unique Trainer_ID.
+
+
 3.Members can enroll in multiple fitness programs.
+
+
 # Scenario B: City Library Event & Book Lending System
 
 **Business Context:**  
@@ -102,7 +108,7 @@ The Central Library wants to manage book lending and cultural events.
 - Overdue fines apply for late returns.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
+
 ![ER Diagram](er_diagram_library.png)
 
 ### Entities and Attributes
@@ -136,18 +142,42 @@ Room	Room_ID (PK), Room_Name, Capacity, Room_Type	Rooms used for events and stud
 
 Fine	Fine_ID (PK), Loan_ID (FK), Member_ID (FK), Amount, Paid_Status	Stores overdue fines
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+Relationships and Constraints: 
+
+
+Relationship	Cardinality	Participation	Notes
+
+
+Member – Loan	1:M	Partial	A member may borrow many books.
+
+
+Book – Loan	1:M	Partial	A book can be borrowed multiple times over time.
+
+
+Member – Event	M:N	Partial	Members can register for multiple events; each event can have many members.
+
+
+Event – Speaker	M:N	Total on Event	Every event has at least one speaker; a speaker may participate in many events.
+
+
+Room – Event	1:M	Partial	One room can host many events, but each event uses one room.
+
+
+Loan – Fine	1:0..1	Partial	A loan may generate one fine if the book is returned late.
+
+
+Member – Fine	1:M	Partial	A member can have multiple overdue fines.
 
 ### Assumptions
-- 
-- 
-- 
+1.Every member has a unique Member_ID.
 
----
+
+2.Every book has a unique Book_ID.
+
+
+3.A member can borrow multiple books simultaneously.
+
+
 
 # Scenario C: Restaurant Table Reservation & Ordering
 
@@ -163,7 +193,7 @@ A popular restaurant wants to manage reservations, orders, and billing.
 - Waiters assigned to serve reservations.
 
 ### ER Diagram:
-*Paste or attach your diagram here*  
+
 ![ER Diagram](er_diagram_restaurant.png)
 
 ### Entities and Attributes
