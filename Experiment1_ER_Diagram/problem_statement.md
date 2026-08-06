@@ -196,23 +196,37 @@ A popular restaurant wants to manage reservations, orders, and billing.
 
 ![ER Diagram](er_diagram_restaurant.png)
 
-### Entities and Attributes
+### Entities and Attributes:
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+| Entity          | Attributes (PK, FK)                                                                                                                          | Notes                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| **Customer**    | **Customer_ID (PK)**, Name, Phone, Email                                                                                                     | Stores customer details                                      |
+| **Reservation** | **Reservation_ID (PK)**, Customer_ID (FK), Table_ID (FK), Waiter_ID (FK), Reservation_Date, Reservation_Time, No_of_Guests, Reservation_Type | Stores table reservations and walk-ins                       |
+| **Table**       | **Table_ID (PK)**, Table_No, Capacity, Status                                                                                                | Stores restaurant table details                              |
+| **Waiter**      | **Waiter_ID (PK)**, Name, Phone                                                                                                              | Stores waiter information                                    |
+| **Order**       | **Order_ID (PK)**, Reservation_ID (FK), Order_Time                                                                                           | Stores customer orders                                       |
+| **Dish**        | **Dish_ID (PK)**, Dish_Name, Price, Category_ID (FK)                                                                                         | Stores menu items                                            |
+| **Category**    | **Category_ID (PK)**, Category_Name                                                                                                          | Categories such as Starter, Main Course, Dessert             |
+| **Order_Item**  | **Order_ID (PK, FK)**, **Dish_ID (PK, FK)**, Quantity                                                                                        | Resolves many-to-many relationship between orders and dishes |
+| **Bill**        | **Bill_ID (PK)**, Reservation_ID (FK), Food_Amount, Service_Charge, Total_Amount, Bill_Date                                                  | Stores billing details                                       |
+
+
+
+
+
+
 
 ### Relationships and Constraints
 
-| Relationship | Cardinality | Participation | Notes |
-|--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
+| Relationship           | Cardinality | Participation | Notes                                                                      |
+| ---------------------- | ----------- | ------------- | -------------------------------------------------------------------------- |
+| Customer – Reservation | 1:M         | Partial       | A customer can make multiple reservations or walk-ins.                     |
+| Table – Reservation    | 1:M         | Partial       | A table can be reserved many times on different dates/times.               |
+| Waiter – Reservation   | 1:M         | Partial       | One waiter can serve multiple reservations.                                |
+| Reservation – Order    | 1:M         | Total         | Each reservation may have one or more food orders.                         |
+| Order – Dish           | M:N         | Total         | Each order contains multiple dishes, and a dish can appear in many orders. |
+| Category – Dish        | 1:M         | Total on Dish | Every dish belongs to exactly one category.                                |
+| Reservation – Bill     | 1:1         | Total         | Each completed reservation generates one bill.                             |
 
 ### Assumptions
 - 
