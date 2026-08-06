@@ -27,61 +27,32 @@ FlexiFit Gym wants a database to manage its members, trainers, and fitness progr
 
 ### Entities and Attributes:
 
-Entity	                Attributes (PK, FK)	                                      Notes
+| Entity               | Attributes (PK, FK)                                                                                | Notes                                   |
+| -------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| **Member**           | **Member_ID (PK)**, Name, Membership_Type, Start_Date                                              | Stores gym members                      |
+| **Program**          | **Program_ID (PK)**, Program_Name, Duration, Fee                                                   | Stores fitness programs                 |
+| **Trainer**          | **Trainer_ID (PK)**, Name, Specialization, Phone                                                   | Stores trainer information              |
+| **Member_Program**   | **Member_ID (PK, FK)**, **Program_ID (PK, FK)**, Join_Date                                         | Resolves many-to-many relationship      |
+| **Program_Trainer**  | **Program_ID (PK, FK)**, **Trainer_ID (PK, FK)**                                                   | Assigns trainers to programs            |
+| **Personal_Session** | **Session_ID (PK)**, Member_ID (FK), Trainer_ID (FK), Session_Date, Session_Time, Duration         | Records personal training bookings      |
+| **Attendance**       | **Attendance_ID (PK)**, Session_ID (FK), Attendance_Date, Status                                   | Tracks attendance for each session      |
+| **Payment**          | **Payment_ID (PK)**, Member_ID (FK), Session_ID (FK, Nullable), Payment_Date, Amount, Payment_Type | Records membership and session payments |
 
 
-Member                  Member_ID (PK), Name, Membership_Type, Start_Date        	Stores gym members
-
-
-Program	                Program_ID (PK), Program_Name, Duration, Fee	            Stores fitness programs
-
-
-Trainer	                Trainer_ID (PK), Name, Specialization, Phone	            Stores trainer information
-
-
-Member_Program	        Member_ID (PK, FK), Program_ID (PK, FK), Join_Date	      Resolves many-to-many relationship
-
-
-Program_Trainer	        Program_ID (PK, FK), Trainer_ID (PK, FK)	                Assigns trainers to programs
-
-
-Personal_Session        Session_ID (PK), Member_ID (FK), Trainer_ID (FK), 
-                        Session_Date, Session_Time,                                Duration	Records personal training bookings
-                        
-                        
-Attendance             	Attendance_ID (PK), Session_ID (FK), Attendance_Date,      Status	Tracks attendance for each session
-
-
-Payment	                Payment_ID (PK), Member_ID (FK), Session_ID (FK, Nullable),
-                        Payment_Date, Amount, Payment_Type	                        Records membership and session payments
-                        
 
 
 
 ### Relationships and Constraints:
 
-Relationship	                Cardinality	        Participation     	Notes
-
-
-Member – Program	            M:N	                Partial	            Members can join multiple programs, and each program has many members.
-
-Program – Trainer	            M:N	                Partial	            A program may have multiple trainers, and a trainer can teach multiple programs.
-
-
-Member – Personal Session	    1:M	                Partial	            A member may book many personal sessions.
-
-
-Trainer – Personal Session	  1:M	                Partial	            A trainer conducts multiple sessions.
-
-
-Personal Session – Attendance	1:1	                Total	              Every session has one attendance record.
-
-
-Member – Payment	            1:M	                Total on Payment	  Each payment belongs to one member; members may have many payments.
-
-
-Personal Session – Payment	  1:M (Optional)	    Partial	            Session payments are linked to sessions; membership payments may not reference a session.
-
+| Relationship                  | Cardinality    | Participation    | Notes                                                                                     |
+| ----------------------------- | -------------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| Member – Program              | M:N            | Partial          | Members can join multiple programs, and each program has many members.                    |
+| Program – Trainer             | M:N            | Partial          | A program may have multiple trainers, and a trainer can teach multiple programs.          |
+| Member – Personal Session     | 1:M            | Partial          | A member may book many personal sessions.                                                 |
+| Trainer – Personal Session    | 1:M            | Partial          | A trainer conducts multiple sessions.                                                     |
+| Personal Session – Attendance | 1:1            | Total            | Every session has one attendance record.                                                  |
+| Member – Payment              | 1:M            | Total on Payment | Each payment belongs to one member; members may have many payments.                       |
+| Personal Session – Payment    | 1:M (Optional) | Partial          | Session payments are linked to sessions; membership payments may not reference a session. |
 
 
 ### Assumptions
@@ -111,62 +82,39 @@ The Central Library wants to manage book lending and cultural events.
 
 ![ER Diagram](er_diagram_library.png)
 
-### Entities and Attributes
+### Entities and Attributes:
 
-Entity	Attributes (PK, FK)	Notes
-
-
-Member	Member_ID (PK), Name, Phone, Email, Membership_Date	Stores library member details
-
-
-Book	Book_ID (PK), Title, Author, Category, Publisher	Stores book information
-
-
-Loan	Loan_ID (PK), Member_ID (FK), Book_ID (FK), Loan_Date, Due_Date, Return_Date	Tracks borrowed books
-
-
-Event	Event_ID (PK), Event_Name, Event_Date, Event_Time, Room_ID (FK)	Stores library event details
+| Entity                 | Attributes (PK, FK)                                                              | Notes                              |
+| ---------------------- | -------------------------------------------------------------------------------- | ---------------------------------- |
+| **Member**             | **Member_ID (PK)**, Name, Phone, Email, Membership_Date                          | Stores library member details      |
+| **Book**               | **Book_ID (PK)**, Title, Author, Category, Publisher                             | Stores book information            |
+| **Loan**               | **Loan_ID (PK)**, Member_ID (FK), Book_ID (FK), Loan_Date, Due_Date, Return_Date | Tracks borrowed books              |
+| **Event**              | **Event_ID (PK)**, Event_Name, Event_Date, Event_Time, Room_ID (FK)              | Stores library event details       |
+| **Speaker**            | **Speaker_ID (PK)**, Name, Profession, Contact                                   | Stores guest speakers/authors      |
+| **Event_Speaker**      | **Event_ID (PK, FK)**, **Speaker_ID (PK, FK)**                                   | Resolves many-to-many relationship |
+| **Event_Registration** | **Member_ID (PK, FK)**, **Event_ID (PK, FK)**, Registration_Date                 | Members registering for events     |
+| **Room**               | **Room_ID (PK)**, Room_Name, Capacity, Room_Type                                 | Rooms used for events and study    |
+| **Fine**               | **Fine_ID (PK)**, Loan_ID (FK), Member_ID (FK), Amount, Paid_Status              | Stores overdue fines               |
 
 
-Speaker	Speaker_ID (PK), Name, Profession, Contact	Stores guest speakers/authors
 
 
-Event_Speaker	Event_ID (PK, FK), Speaker_ID (PK, FK)	Resolves many-to-many relationship
 
 
-Event_Registration	Member_ID (PK, FK), Event_ID (PK, FK), Registration_Date	Members registering for events
+Relationships and Constraints:
+
+| Relationship    | Cardinality | Participation  | Notes                                                                           |
+| --------------- | ----------- | -------------- | ------------------------------------------------------------------------------- |
+| Member – Loan   | 1:M         | Partial        | A member may borrow many books.                                                 |
+| Book – Loan     | 1:M         | Partial        | A book can be borrowed multiple times over time.                                |
+| Member – Event  | M:N         | Partial        | Members can register for multiple events; each event can have many members.     |
+| Event – Speaker | M:N         | Total on Event | Every event has at least one speaker; a speaker may participate in many events. |
+| Room – Event    | 1:M         | Partial        | One room can host many events, but each event uses one room.                    |
+| Loan – Fine     | 1:0..1      | Partial        | A loan may generate one fine if the book is returned late.                      |
+| Member – Fine   | 1:M         | Partial        | A member can have multiple overdue fines.                                       |
 
 
-Room	Room_ID (PK), Room_Name, Capacity, Room_Type	Rooms used for events and study
 
-
-Fine	Fine_ID (PK), Loan_ID (FK), Member_ID (FK), Amount, Paid_Status	Stores overdue fines
-
-Relationships and Constraints: 
-
-
-Relationship	Cardinality	Participation	Notes
-
-
-Member – Loan	1:M	Partial	A member may borrow many books.
-
-
-Book – Loan	1:M	Partial	A book can be borrowed multiple times over time.
-
-
-Member – Event	M:N	Partial	Members can register for multiple events; each event can have many members.
-
-
-Event – Speaker	M:N	Total on Event	Every event has at least one speaker; a speaker may participate in many events.
-
-
-Room – Event	1:M	Partial	One room can host many events, but each event uses one room.
-
-
-Loan – Fine	1:0..1	Partial	A loan may generate one fine if the book is returned late.
-
-
-Member – Fine	1:M	Partial	A member can have multiple overdue fines.
 
 ### Assumptions
 1.Every member has a unique Member_ID.
