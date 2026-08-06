@@ -107,15 +107,34 @@ The Central Library wants to manage book lending and cultural events.
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+Entity	Attributes (PK, FK)	Notes
 
-### Relationships and Constraints
+
+Member	Member_ID (PK), Name, Phone, Email, Membership_Date	Stores library member details
+
+
+Book	Book_ID (PK), Title, Author, Category, Publisher	Stores book information
+
+
+Loan	Loan_ID (PK), Member_ID (FK), Book_ID (FK), Loan_Date, Due_Date, Return_Date	Tracks borrowed books
+
+
+Event	Event_ID (PK), Event_Name, Event_Date, Event_Time, Room_ID (FK)	Stores library event details
+
+
+Speaker	Speaker_ID (PK), Name, Profession, Contact	Stores guest speakers/authors
+
+
+Event_Speaker	Event_ID (PK, FK), Speaker_ID (PK, FK)	Resolves many-to-many relationship
+
+
+Event_Registration	Member_ID (PK, FK), Event_ID (PK, FK), Registration_Date	Members registering for events
+
+
+Room	Room_ID (PK), Room_Name, Capacity, Room_Type	Rooms used for events and study
+
+
+Fine	Fine_ID (PK), Loan_ID (FK), Member_ID (FK), Amount, Paid_Status	Stores overdue fines
 
 | Relationship | Cardinality | Participation | Notes |
 |--------------|------------|---------------|-------|
