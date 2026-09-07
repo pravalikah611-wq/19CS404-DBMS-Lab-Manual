@@ -63,7 +63,25 @@ Key Differences:
 **Expected Output:**  
 Square of 6 is 36
 
----
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE find_square(n NUMBER)
+IS
+    square NUMBER;
+BEGIN
+    square := n * n;
+
+    DBMS_OUTPUT.PUT_LINE('Square of ' || n || ' is ' || square);
+END;
+/
+
+BEGIN
+    find_square(6);
+END;
+/
+
+<img width="1412" height="734" alt="db exp 9 qu 1" src="https://github.com/user-attachments/assets/1b189d36-b542-4107-966c-811e2d441842" />
+
 
 ## 2. Write a PL/SQL Function to Return the Factorial of a Number
 
@@ -77,7 +95,25 @@ Square of 6 is 36
 **Expected Output:**  
 Factorial of 5 is 120
 
----
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION get_factorial(n NUMBER)
+RETURN NUMBER
+IS
+    fact NUMBER := 1;
+    i NUMBER := 1;
+BEGIN
+    WHILE i <= n LOOP
+        fact := fact * i;
+        i := i + 1;
+    END LOOP;
+
+    RETURN fact;
+END;
+/
+
+<img width="1409" height="735" alt="db exp 9 qu 2" src="https://github.com/user-attachments/assets/644d8279-d9e8-4b70-b417-57e230d358b7" />
+
 
 ## 3. Write a PL/SQL Procedure to Check Whether a Number is Even or Odd
 
@@ -90,7 +126,21 @@ Factorial of 5 is 120
 **Expected Output:**  
 12 is Even
 
----
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE check_even_odd(n NUMBER)
+IS
+BEGIN
+    IF MOD(n, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(n || ' is Even');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(n || ' is Odd');
+    END IF;
+END;
+/
+
+<img width="1394" height="793" alt="db ex 9 qu 3" src="https://github.com/user-attachments/assets/fde0a062-e835-4dc5-876d-a3a92e158df5" />
+
 
 ## 4. Write a PL/SQL Function to Return the Reverse of a Number
 
@@ -104,7 +154,27 @@ Factorial of 5 is 120
 **Expected Output:**  
 Reversed number of 1234 is 4321
 
----
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION reverse_number(n NUMBER)
+RETURN NUMBER
+IS
+    rev NUMBER := 0;
+    digit NUMBER;
+    num NUMBER := n;
+BEGIN
+    WHILE num > 0 LOOP
+        digit := MOD(num, 10);
+        rev := (rev * 10) + digit;
+        num := TRUNC(num / 10);
+    END LOOP;
+
+    RETURN rev;
+END;
+/
+
+<img width="1396" height="741" alt="db ex 9 qu 4" src="https://github.com/user-attachments/assets/6e779131-1179-40d2-a1b7-94d954342696" />
+
 
 ## 5. Write a PL/SQL Procedure to Display the Multiplication Table of a Number
 
@@ -121,6 +191,24 @@ Multiplication table of 5:
 5 x 3 = 15  
 ...  
 5 x 10 = 50
+
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE print_table(n NUMBER)
+IS
+    i NUMBER := 1;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Multiplication table of ' || n || ':');
+
+    WHILE i <= 10 LOOP
+        DBMS_OUTPUT.PUT_LINE(n || ' x ' || i || ' = ' || (n * i));
+        i := i + 1;
+    END LOOP;
+END;
+/
+
+<img width="1395" height="730" alt="db qu 5" src="https://github.com/user-attachments/assets/28be8f81-235b-4a31-b3b4-3bf8e2f44e6f" />
+
 
 ## RESULT
 Thus, the PL/SQL programs using procedures and functions were written, compiled, and executed successfully.
